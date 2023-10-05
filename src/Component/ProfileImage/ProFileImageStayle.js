@@ -1,21 +1,21 @@
 import {StyleSheet} from 'react-native';
-import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
-import {Black, White} from '../../Styles/Color';
+import {scale} from 'react-native-size-matters';
+import {White} from '../../Styles/Color';
 const ProfileImageStyle = StyleSheet.create({
+  ProfileImage: {
+    borderRadius: scale(50),
+    height: '100%',
+    width: '100%',
+  },
   profileWrapper: {
-    width: scale(52),
-    height: scale(52),
-    overflow: 'hidden',
+    alignItems: 'center',
+    borderColor: White,
     borderRadius: scale(50),
     borderWidth: scale(0.6),
-    borderColor: White,
+    height: scale(52),
     justifyContent: 'center',
-    alignItems: 'center',
-  },
-  ProfileImage: {
-    width: "100%",
-    height: "100%",
-    borderRadius: scale(50),
+    overflow: 'hidden',
+    width: scale(52),
   },
 });
 export default ProfileImageStyle;

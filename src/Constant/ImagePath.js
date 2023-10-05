@@ -21,18 +21,18 @@ import Poll from '../Images/Icon/Poll.svg';
 import Media_2 from '../Images/Icon/media_2.svg';
 import Contact from '../Images/Icon/contact.svg';
 import Location from '../Images/Icon/location.svg';
-import Splash_2 from '../Images/Splash_Img2.svg'
-import Splash_3 from '../Images/Splash_Img3.svg'
-import Splash_4 from '../Images/Splash_Img4.svg'
-import RightArrow from '../Images/RightArrow.svg'
-import NameIcon from '../Images/Icon/NameIcon.svg'
-import Mailicon from '../Images/Icon/mailIcon.svg'
+import Splash_2 from '../Images/Splash_Img2.svg';
+import Splash_3 from '../Images/Splash_Img3.svg';
+import Splash_4 from '../Images/Splash_Img4.svg';
+import RightArrow from '../Images/RightArrow.svg';
+import NameIcon from '../Images/Icon/NameIcon.svg';
+import Mailicon from '../Images/Icon/mailIcon.svg';
 import LockIcon from '../Images/Icon/lockIcon.svg';
 import Send from '../Images/Icon/Send.svg';
-import CloseWhite from '../Images/Icon/closeWhite.svg'
+import CloseWhite from '../Images/Icon/closeWhite.svg';
 import SearchBlack from '../Images/Icon/SearchBlack.svg';
-import NotificationBlack from "../Images/Icon/NotificationBlack.svg"
-import NotificationWhite from "../Images/Icon/Notification.svg"
+import NotificationBlack from '../Images/Icon/NotificationBlack.svg';
+import NotificationWhite from '../Images/Icon/Notification.svg';
 export default {
   BackArrow: BackArrows,
   BackArrowsWhite: BackArrowsWhite,
@@ -73,5 +73,5 @@ export default {
   CloseWhite: CloseWhite,
   SearchBlack: SearchBlack,
   NotificationWhite: NotificationWhite,
-  NotificationBlack: NotificationBlack
+  NotificationBlack: NotificationBlack,
 };

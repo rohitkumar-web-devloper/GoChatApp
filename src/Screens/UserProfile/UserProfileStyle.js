@@ -1,31 +1,27 @@
-import { StyleSheet } from 'react-native';
-import { Gray, LGray, White } from '../../Styles/Color';
-import {
-    responsiveHeight,
-    responsiveWidth,
-    responsiveFontSize,
-} from 'react-native-responsive-dimensions';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import {StyleSheet} from 'react-native';
+import {LGray} from '../../Styles/Color';
+import {scale, moderateScale} from 'react-native-size-matters';
 
-export default userProfileStyle = StyleSheet.create({
-    followWrapper: {
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    followText: {
-        fontSize: scale(13),
-        fontWeight: 500
-    },
-    followcount: {
-        fontSize: scale(15),
-        fontWeight: 500,
-        marginBottom: moderateScale(5)
-    },
-    followButton: {
-        width: "48%",
-        backgroundColor: LGray,
-        alignItems: "center",
-        padding: moderateScale(10),
-        borderRadius: scale(6)
-    }
+const userProfileStyle = StyleSheet.create({
+  followButton: {
+    alignItems: 'center',
+    backgroundColor: LGray,
+    borderRadius: scale(6),
+    padding: moderateScale(10),
+    width: '48%',
+  },
+  followText: {
+    fontSize: scale(13),
+    fontWeight: 500,
+  },
+  followWrapper: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  followcount: {
+    fontSize: scale(15),
+    fontWeight: 500,
+    marginBottom: moderateScale(5),
+  },
 });
+export default userProfileStyle;

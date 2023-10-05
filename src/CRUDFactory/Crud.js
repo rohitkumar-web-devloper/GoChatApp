@@ -1,19 +1,16 @@
-
-import { CrudRequest } from "@crud/core";
-import { Main_Base } from "../Constant/Variable";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import {CrudRequest} from '@crud/core';
+import {Main_Base} from '../Constant/Variable';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export class CrudFactory extends CrudRequest {
-  dateFormat = "MMMM Do YYYY hh:mm A";
+  dateFormat = 'MMMM Do YYYY hh:mm A';
   baseUrl = Main_Base;
 
-  getUrl = (...segments) =>
-    segments.reduce((url, segment) => url + segment, this.baseUrl);
+  getUrl = (...segments) => segments.reduce((url, segment) => url + segment, this.baseUrl);
 
   async retrieve(url, data = {}, requestOptions = {}) {
     return this.send({
-      method: "GET",
+      method: 'GET',
       // url: `retrieve/${url}`,
       url: `${url}`,
       data,
@@ -23,7 +20,7 @@ export class CrudFactory extends CrudRequest {
 
   async post(url, data = {}, requestOptions = {}) {
     return this.send({
-      method: "POST",
+      method: 'POST',
       url: `${url}`,
       data,
       ...requestOptions,
@@ -31,7 +28,7 @@ export class CrudFactory extends CrudRequest {
   }
   async put(url, data = {}, requestOptions = {}) {
     return this.send({
-      method: "PUT",
+      method: 'PUT',
       url: `${url}`,
       data,
       ...requestOptions,
@@ -40,7 +37,7 @@ export class CrudFactory extends CrudRequest {
 
   async delete(url, data = {}, requestOptions = {}) {
     return this.send({
-      method: "DELETE",
+      method: 'DELETE',
       url,
       data,
       ...requestOptions,
@@ -48,7 +45,7 @@ export class CrudFactory extends CrudRequest {
   }
 
   async send(requestOptions = {}) {
-    const { url, data, method, notify = true } = requestOptions;
+    const {url, data, method, notify = true} = requestOptions;
 
     const options = {
       ...requestOptions.ajaxOptions,
@@ -56,21 +53,21 @@ export class CrudFactory extends CrudRequest {
     };
 
     let fullUrl;
-    const token = await AsyncStorage.getItem("Token")
-    const CustomerToken = "Bearer " + token
+    const token = await AsyncStorage.getItem('Token');
+    const CustomerToken = 'Bearer ' + token;
     options.headers = {
       ...options.headers,
-      Accept: "application/json",
+      Accept: 'application/json',
       Authorization: CustomerToken,
     };
 
     if (!(data instanceof FormData)) {
-      options.headers["Content-Type"] = "application/json";
+      options.headers['Content-Type'] = 'application/json';
     }
 
     fullUrl = this.getUrl(url);
 
-    if (options.method === "GET") {
+    if (options.method === 'GET') {
       const queryString = new URLSearchParams(data);
       fullUrl += `?${queryString}`;
     } else if (data instanceof FormData) {
@@ -81,18 +78,18 @@ export class CrudFactory extends CrudRequest {
 
     let res = {
       data: [],
-      message: "",
-      type: "error",
+      message: '',
+      type: 'error',
       errors: [],
     };
 
     try {
-      this.call("loading", [true]);
+      this.call('loading', [true]);
       const response = await fetch(fullUrl, options);
       if (response.status === 200) {
         res = await response.json();
-        const { type, message } = res;
-        if (options.method !== "GET" && notify) {
+        const {type, message} = res;
+        if (options.method !== 'GET' && notify) {
           this.notify({
             message,
             type,
@@ -103,20 +100,20 @@ export class CrudFactory extends CrudRequest {
         throw new Error(`${response.status} : ${response.statusText}`);
       }
     } catch (e) {
-      this.call("loading", [false]);
+      this.call('loading', [false]);
       console.error(e);
       this.notify({
         message: e.message,
-        type: "error",
+        type: 'error',
       });
       throw e;
     } finally {
-      this.call("loading", [false]);
+      this.call('loading', [false]);
     }
 
-    const { type } = res;
+    const {type} = res;
 
-    if (type === "error") throw res;
+    if (type === 'error') throw res;
 
     return res;
   }
