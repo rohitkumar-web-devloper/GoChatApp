@@ -1,9 +1,9 @@
-import {View, TouchableOpacity, Image} from 'react-native';
+import { View, TouchableOpacity, Image } from 'react-native';
 import React from 'react';
 import ImagePath from '../../Constant/ImagePath';
 import ProfileImageStyle from './ProFileImageStayle';
-import {scale} from 'react-native-size-matters';
-const ProfileImage = ({widthValue, heightValue}) => {
+import { scale } from 'react-native-size-matters';
+const ProfileImage = ({ widthValue, heightValue, imageUrl }) => {
   return (
     <View>
       <TouchableOpacity
@@ -16,7 +16,7 @@ const ProfileImage = ({widthValue, heightValue}) => {
           },
         ]}
       >
-        <Image source={ImagePath.Profile} style={ProfileImageStyle.ProfileImage} />
+        <Image source={{ uri: imageUrl }} style={ProfileImageStyle.ProfileImage} />
       </TouchableOpacity>
     </View>
   );

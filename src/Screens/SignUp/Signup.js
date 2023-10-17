@@ -1,21 +1,21 @@
 // eslint-disable-next-line react-native/split-platform-components
-import {View, Text, SafeAreaView, StatusBar, TouchableOpacity, TextInput, Dimensions, ScrollView, Alert, ToastAndroid} from 'react-native';
+import { View, Text, SafeAreaView, StatusBar, TouchableOpacity, TextInput, Dimensions, ScrollView, Alert, ToastAndroid } from 'react-native';
 import React from 'react';
 import LoginStyle from '../Login/LoginStyle';
 import MainStyle from '../../Styles/MainStyle';
-import {Black, DGray, Gray, LGray, White} from '../../Styles/Color';
+import { Black, DGray, Gray, LGray, White } from '../../Styles/Color';
 import ImagePath from '../../Constant/ImagePath';
-import {useNavigation} from '@react-navigation/native';
-import {scale, verticalScale} from 'react-native-size-matters';
-import {Formik} from 'formik';
+import { useNavigation } from '@react-navigation/native';
+import { scale, verticalScale } from 'react-native-size-matters';
+import { Formik } from 'formik';
 import SignUpSchema from '../../Schemas/SignUp';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
-import {Main_Base} from '../../Constant/Variable';
+import { Main_Base } from '../../Constant/Variable';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NavigationStrings from '../../Constant/NavigationStrings';
 const Signup = () => {
-  const {height} = Dimensions.get('window');
+  const { height } = Dimensions.get('window');
   const Navigation = useNavigation();
   const theme = useSelector((state) => state.theme.theme);
   const initialValues = {
@@ -25,7 +25,7 @@ const Signup = () => {
     confirmPassword: '',
   };
   return (
-    <SafeAreaView style={[MainStyle.MainWrapper, {padding: 0}]}>
+    <SafeAreaView style={[MainStyle.MainWrapper, { padding: 0 }]}>
       <StatusBar backgroundColor={theme == 'dark' ? Black : White} barStyle={theme == 'dark' ? 'light-content' : 'dark-content'} />
       <ScrollView bounces={false}>
         <View
@@ -40,14 +40,14 @@ const Signup = () => {
             enableReinitialize={true}
             onSubmit={(values) => {
               axios
-                .post(`${Main_Base}/create/register-with-email`, {
+                .post(`${Main_Base}/create/email-register`, {
                   fullName: values.fullName,
                   email: values.email,
                   password: values.password,
                 })
                 .then(async (response) => {
                   if (response.data.type == 'success') {
-                    await AsyncStorage.setItem('Token', response?.data?.data?.token);
+                    await AsyncStorage.setItem('userData', JSON.stringify({ Token: response.data.data.token, id: response.data.data.id }));
                     Navigation.navigate(NavigationStrings.HOME);
                   } else if (response.data.type == 'error') {
                     ToastAndroid.show(response.data.message, ToastAndroid.SHORT);
@@ -59,7 +59,7 @@ const Signup = () => {
             }}
             validationSchema={SignUpSchema}
           >
-            {({handleChange, handleBlur, handleSubmit, values, touched, isValid, errors}) => (
+            {({ handleChange, handleBlur, handleSubmit, values, touched, isValid, errors }) => (
               <View
                 style={{
                   flex: 1,
@@ -76,8 +76,8 @@ const Signup = () => {
                   >
                     {theme == 'dark' ? <ImagePath.BackArrowsWhite /> : <ImagePath.BackArrow />}
                   </TouchableOpacity>
-                  <View style={{marginBottom: 30}}>
-                    <Text style={[LoginStyle.Headline, {color: theme == 'dark' ? White : Black}]}>Sign up with Email</Text>
+                  <View style={{ marginBottom: 30 }}>
+                    <Text style={[LoginStyle.Headline, { color: theme == 'dark' ? White : Black }]}>Sign up with Email</Text>
                     <Text style={LoginStyle.text}> Get chatting with friends and family today by signing up for our chat app!</Text>
                   </View>
                   <View>
@@ -227,15 +227,15 @@ const Signup = () => {
                     </View>
                   </View>
                 </View>
-                <View style={{marginTop: scale(40)}}>
+                <View style={{ marginTop: scale(40) }}>
                   <TouchableOpacity
-                    style={isValid ? [MainStyle.MainButton] : [MainStyle.MainButton, {backgroundColor: LGray}]}
+                    style={isValid ? [MainStyle.MainButton] : [MainStyle.MainButton, { backgroundColor: LGray }]}
                     onPress={() => {
                       handleSubmit();
                     }}
                     disabled={isValid ? false : true}
                   >
-                    <Text style={isValid ? [MainStyle.MainButtonText] : [MainStyle.MainButtonText, {color: Gray}]}>Create an account</Text>
+                    <Text style={isValid ? [MainStyle.MainButtonText] : [MainStyle.MainButtonText, { color: Gray }]}>Create an account</Text>
                   </TouchableOpacity>
                 </View>
               </View>

@@ -1,19 +1,19 @@
-import {View, Text, SafeAreaView, ScrollView, TouchableOpacity, Alert} from 'react-native';
-import React, {useEffect} from 'react';
+import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import React, { useEffect } from 'react';
 import Splash_2Style from './Splash_2Style';
 import ImagePath from '../../Constant/ImagePath';
 import LoginStyle from '../Login/LoginStyle';
-import {Black, White, LGray} from '../../Styles/Color';
+import { Black, White, LGray } from '../../Styles/Color';
 import MainStyle from '../../Styles/MainStyle';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import NavigationStrings from '../../Constant/NavigationStrings';
-import {scale} from 'react-native-size-matters';
-import {GoogleSignin, statusCodes} from '@react-native-google-signin/google-signin';
+import { scale } from 'react-native-size-matters';
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 // import auth from '@react-native-firebase/auth';
 // import { LoginButton, AccessToken, Profile, LoginManager } from 'react-native-fbsdk-next';
 // import { firebase } from '@react-native-firebase/app';
 import axios from 'axios';
-import {Main_Base} from '../../Constant/Variable';
+import { Main_Base } from '../../Constant/Variable';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const Splash_2 = () => {
   const Navigation = useNavigation();
@@ -22,9 +22,9 @@ const Splash_2 = () => {
       await GoogleSignin.hasPlayServices();
       await GoogleSignin.signOut();
       const userInfo = await GoogleSignin.signIn();
-      const {id, photo, givenName, familyName, email, name} = userInfo.user;
+      const { id, photo, givenName, familyName, email, name } = userInfo.user;
       axios
-        .post(`${Main_Base}/create/google-register-app`, {
+        .post(`${Main_Base}/create/google-register`, {
           uid: id,
           photoUrl: photo,
           firstName: givenName,
@@ -35,7 +35,7 @@ const Splash_2 = () => {
         })
         .then(async (response) => {
           if (response.data.type == 'success') {
-            await AsyncStorage.setItem('Token', response.data.data.token);
+            await AsyncStorage.setItem('userData', JSON.stringify({ Token: response.data.data.token, id: response.data.data.id }));
             Navigation.navigate(NavigationStrings.HOME);
           } else Alert.alert(response.data.message);
         })
@@ -60,7 +60,7 @@ const Splash_2 = () => {
     });
   }, []);
   return (
-    <SafeAreaView style={{backgroundColor: Black, height: '100%'}}>
+    <SafeAreaView style={{ backgroundColor: Black, height: '100%' }}>
       <ScrollView>
         <View
           style={{
@@ -74,15 +74,15 @@ const Splash_2 = () => {
         >
           <View>
             <View>
-              <Text style={{color: White, textAlign: 'center', marginTop: 20}}>GoChat</Text>
+              <Text style={{ color: White, textAlign: 'center', marginTop: 20 }}>GoChat</Text>
             </View>
             <View>
-              <Text style={Splash_2Style.heading}> Connect friends easily & quickly</Text>
+              <Text style={Splash_2Style.heading}>Connect friends easily & quickly</Text>
               <Text style={Splash_2Style.title}> Our chat app is the perfect way to stay connected with friends and family.</Text>
             </View>
-            <View style={{alignItems: 'center'}}>
+            <View style={{ alignItems: 'center' }}>
               <TouchableOpacity
-                style={[LoginStyle.AuthButton, {borderColor: 'white', backgroundColor: LGray}]}
+                style={[LoginStyle.AuthButton, { borderColor: 'white', backgroundColor: LGray }]}
                 onPress={() => {
                   signIn();
                 }}
@@ -91,14 +91,14 @@ const Splash_2 = () => {
                 <Text style={LoginStyle.AuthButtonText}>Sign up with google</Text>
               </TouchableOpacity>
             </View>
-            <View style={[LoginStyle.ButtonWrapper, {gap: 15, marginTop: scale(40)}]}>
+            <View style={[LoginStyle.ButtonWrapper, { gap: 15, marginTop: scale(40) }]}>
               <View style={LoginStyle.line}></View>
-              <Text style={{color: White}}>OR</Text>
+              <Text style={{ color: White }}>OR</Text>
               <View style={LoginStyle.line}></View>
             </View>
           </View>
-          <View style={{marginTop: scale(0)}}>
-            <View style={{marginBottom: scale(15)}}>
+          <View style={{ marginTop: scale(0) }}>
+            <View style={{ marginBottom: scale(15) }}>
               <TouchableOpacity
                 style={MainStyle.MainButton}
                 onPress={() => {
@@ -109,7 +109,7 @@ const Splash_2 = () => {
               </TouchableOpacity>
             </View>
             <View style={MainStyle.flexDesignRow}>
-              <Text style={{fontSize: 15, fontWeight: 600, color: LGray}}>Existing account?</Text>
+              <Text style={{ fontSize: 15, fontWeight: 600, color: LGray }}>Existing account?</Text>
               <TouchableOpacity
                 onPress={() => {
                   Navigation.navigate(NavigationStrings.LOGIN);

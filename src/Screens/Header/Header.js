@@ -16,7 +16,7 @@ const Header = (props) => {
   const Navigation = useNavigation();
   let theme = useSelector((state) => state.theme.theme);
   return (
-    <View style={[styles.Wrapper, {paddingHorizontal: moderateScale(10), zIndex: 11}]}>
+    <View style={[styles.Wrapper, {paddingHorizontal: moderateScale(0), zIndex: 11}]}>
       <View style={[MainStyle.flexDesignRow, {gap: scale(10)}]}>
         <TouchableOpacity style={{padding: scale(3)}} onPress={() => Navigation.goBack()}>
           {theme == 'dark' ? <ImagePath.BackArrowsWhite /> : <ImagePath.BackArrow />}

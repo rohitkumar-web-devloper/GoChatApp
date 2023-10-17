@@ -33,6 +33,7 @@ import CloseWhite from '../Images/Icon/closeWhite.svg';
 import SearchBlack from '../Images/Icon/SearchBlack.svg';
 import NotificationBlack from '../Images/Icon/NotificationBlack.svg';
 import NotificationWhite from '../Images/Icon/Notification.svg';
+import Audio from '../Images/Icon/audio.svg'
 export default {
   BackArrow: BackArrows,
   BackArrowsWhite: BackArrowsWhite,
@@ -74,4 +75,5 @@ export default {
   SearchBlack: SearchBlack,
   NotificationWhite: NotificationWhite,
   NotificationBlack: NotificationBlack,
+  Audio: Audio
 };

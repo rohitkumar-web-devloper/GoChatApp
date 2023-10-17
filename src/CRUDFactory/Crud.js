@@ -1,5 +1,5 @@
-import {CrudRequest} from '@crud/core';
-import {Main_Base} from '../Constant/Variable';
+import { CrudRequest } from '@crud/core';
+import { Main_Base } from '../Constant/Variable';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export class CrudFactory extends CrudRequest {
@@ -45,7 +45,7 @@ export class CrudFactory extends CrudRequest {
   }
 
   async send(requestOptions = {}) {
-    const {url, data, method, notify = true} = requestOptions;
+    const { url, data, method, notify = true } = requestOptions;
 
     const options = {
       ...requestOptions.ajaxOptions,
@@ -53,8 +53,9 @@ export class CrudFactory extends CrudRequest {
     };
 
     let fullUrl;
-    const token = await AsyncStorage.getItem('Token');
-    const CustomerToken = 'Bearer ' + token;
+    let token = await AsyncStorage.getItem('userData');
+    const token1 = JSON.parse(token).Token
+    const CustomerToken = 'Bearer ' + token1;
     options.headers = {
       ...options.headers,
       Accept: 'application/json',
@@ -88,7 +89,7 @@ export class CrudFactory extends CrudRequest {
       const response = await fetch(fullUrl, options);
       if (response.status === 200) {
         res = await response.json();
-        const {type, message} = res;
+        const { type, message } = res;
         if (options.method !== 'GET' && notify) {
           this.notify({
             message,
@@ -111,7 +112,7 @@ export class CrudFactory extends CrudRequest {
       this.call('loading', [false]);
     }
 
-    const {type} = res;
+    const { type } = res;
 
     if (type === 'error') throw res;
 

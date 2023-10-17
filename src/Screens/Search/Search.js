@@ -19,7 +19,7 @@ const Search = () => {
   const getData = (value) => {
     const data = value;
     $crud
-      .retrieve('/retrieve/debounce-user', {value: data})
+      .retrieve('/retrieve/global-user-search', {value: data})
       .then((response) => {
         setUserData(response.data);
       })
