@@ -15,52 +15,6 @@ import { useSelector } from 'react-redux';
 import { $crud } from '../../CRUDFactory/Crud';
 import socket from '../../../Socket';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// const Profiledata = [
-//   {
-//     name: 'rohit',
-//     opened: false,
-//   },
-//   {
-//     image: ImagePath.Profile,
-//     opened: false,
-//   },
-//   {
-//     image: ImagePath.Profile,
-//     name: 'rohit',
-//     opened: false,
-//   },
-//   {
-//     image: ImagePath.Profile,
-//     opened: false,
-//   },
-//   {
-//     image: ImagePath.Profile,
-//     name: 'rohit',
-//     opened: false,
-//   },
-//   {
-//     image: ImagePath.Profile,
-//     opened: false,
-//   },
-//   {
-//     image: ImagePath.Profile,
-//     name: 'rohit',
-//     opened: false,
-//   },
-//   {
-//     image: ImagePath.Profile,
-//     opened: false,
-//   },
-//   {
-//     image: ImagePath.Profile,
-//     name: 'rohit',
-//     opened: false,
-//   },
-//   {
-//     image: ImagePath.Profile,
-//     opened: false,
-//   },
-// ];
 const Home = () => {
   const { width, height } = Dimensions.get('window');
   const Navigation = useNavigation();
@@ -120,6 +74,9 @@ const Home = () => {
     };
   };
   const debounceGetData = debounce(getData, 500);
+  socket.on('activeStatus', (data) => {
+    console.log(data, "kkkkkkkkkkk")
+  })
   useEffect(() => {
     AllUser()
     Auth()

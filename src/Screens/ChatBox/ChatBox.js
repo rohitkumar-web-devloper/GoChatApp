@@ -75,6 +75,7 @@ const ChatBox = ({ route }) => {
   //   }
   // };
   socket.off("recieveMessage").on("recieveMessage", (data) => {
+    console.log(data, "ooooooooooooooooo")
     Dispatch(addNewChat(data))
     db.transaction((tx) => {
       tx.executeSql(
@@ -111,11 +112,11 @@ const ChatBox = ({ route }) => {
       );
     });
   };
-  const saveChatMessage = (message, sender, reciver, time) => {
+  const saveChatMessage = (message, sender, receiver, time) => {
     db.transaction((tx) => {
       tx.executeSql(
         `INSERT INTO chats${route.params.data.id} (message, sender , reciver, time ) VALUES (?,?,?,?)`,
-        [message, sender, reciver, time],
+        [message, sender, receiver, time],
         (tx, results) => {
           if (results.rowsAffected > 0) {
             console.log('Message saved successfully');
@@ -129,7 +130,7 @@ const ChatBox = ({ route }) => {
         }
       );
     });
-    socket.emit("sendMessage", { message, sender, reciver, time })
+    socket.emit("sendMessage", { message, sender, receiver, time })
   };
   const UserId = async () => {
     let data = await AsyncStorage.getItem("userData")
@@ -210,7 +211,6 @@ const ChatBox = ({ route }) => {
       >
         <View>
           {/* PROFILE DETAILS */}
-
           <View>
             <View style={{ justifyContent: 'center', width: '100%', alignItems: 'center', paddingVertical: verticalScale(10), }}>
               <ProfileImage widthValue={100} heightValue={100} imageUrl={userData.photoUrl} />

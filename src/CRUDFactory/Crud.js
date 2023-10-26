@@ -5,7 +5,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export class CrudFactory extends CrudRequest {
   dateFormat = 'MMMM Do YYYY hh:mm A';
   baseUrl = Main_Base;
-
   getUrl = (...segments) => segments.reduce((url, segment) => url + segment, this.baseUrl);
 
   async retrieve(url, data = {}, requestOptions = {}) {
